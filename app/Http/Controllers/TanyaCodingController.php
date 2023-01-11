@@ -25,7 +25,7 @@ class TanyaCodingController extends Controller
     {
         // $dataUser = User::all();
 
-        $dataPublic = Pertanyaan::get();
+        $dataPublic = Pertanyaan::latest()->get();
         // $dataWaktu = Carbon::parse($dataPublic->created_at);
         return view('main.dashboard', [
             'dataPublic' => $dataPublic,
