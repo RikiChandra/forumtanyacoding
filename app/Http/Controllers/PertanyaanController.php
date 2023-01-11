@@ -68,6 +68,10 @@ class PertanyaanController extends Controller
     public function show(Pertanyaan $pertanyaan)
     {
         //
+        $dataShow = Pertanyaan::find($pertanyaan);
+        return view('question.detail', [
+            'dataShow' => $dataShow
+        ]);
     }
 
     /**

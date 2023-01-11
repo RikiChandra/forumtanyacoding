@@ -14,4 +14,9 @@ class Pertanyaan extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function jawaban()
+    {
+        return $this->hasMany(Answers::class, 'id', 'questions_id ');
+    }
 }

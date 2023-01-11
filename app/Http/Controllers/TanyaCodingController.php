@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Answers;
 use App\Models\Pertanyaan;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,10 +24,15 @@ class TanyaCodingController extends Controller
     public function public()
     {
         // $dataUser = User::all();
-        $dataPublic = Pertanyaan::all();
+
+        $dataPublic = Pertanyaan::get();
+        // $dataWaktu = Carbon::parse($dataPublic->created_at);
         return view('main.dashboard', [
             'dataPublic' => $dataPublic,
+            // 'dataWaktu' => $dataWaktu,
         ]);
+
+        // var_dump($dataWaktu);
     }
 
     public function dashboardUser()
@@ -65,9 +72,16 @@ class TanyaCodingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Pertanyaan $id)
     {
         //
+
+        $dataShow = Pertanyaan::find($id)->first();
+        $dataJwb = Answers::where('questions_id', $dataShow->id)->get();
+        return view('question.detail', [
+            'dataShow' => $dataShow,
+            'dataJwb' => $dataJwb,
+        ]);
     }
 
     /**

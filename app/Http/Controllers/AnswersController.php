@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Answers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\Console\Question\Question;
 
 class AnswersController extends Controller
 {
@@ -36,6 +38,18 @@ class AnswersController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'questions_id' => 'required|exists:pertanyaans,id',
+            'body' => 'required|string',
+        ]);
+
+        $answer = new Answers();
+        $answer->questions_id  = $request->questions_id;
+        $answer->user_id = auth()->user()->id;
+        $answer->body = $request->body;
+        $answer->save();
+
+        return redirect('/questions/public');
     }
 
     /**

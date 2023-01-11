@@ -17,7 +17,7 @@
                     <a href="#" class="list-group-item list-group-item-action" aria-current="true">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{ $item->title }}</h5>
-                            <small>3 days ago</small>
+                            <small>{{ $item->created_at->diffForHumans() }}</small>
                         </div>
                         <p class="mb-1">{{ $item->body }}</p>
                         <small>{{ Auth()->user()->name }}</small>

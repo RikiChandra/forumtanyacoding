@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnswersController;
 use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\TanyaCodingController;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('/questions/public');
 });
 
 Route::get('/dashboard', function () {
@@ -28,7 +29,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/questions/user', [TanyaCodingController::class, 'dashboardUser'])->name('/questions/user');
 
     Route::post('/send/questions', [PertanyaanController::class, 'store'])->name('/send/questions');
+    Route::post('/send/answers', [AnswersController::class, 'store'])->name('/send/answers');
 });
 
 Route::get('/questions/public', [TanyaCodingController::class, 'public'])->name('/questions/public');
+Route::get('/questions/public/detail/{id}', [TanyaCodingController::class, 'show'])->name('/questions/public/detail');
 require __DIR__ . '/auth.php';
