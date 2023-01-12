@@ -72,11 +72,11 @@ class TanyaCodingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Pertanyaan $id)
+    public function show($id)
     {
         //
 
-        $dataShow = Pertanyaan::find($id)->first();
+        $dataShow = Pertanyaan::find($id);
         $dataJwb = Answers::where('questions_id', $dataShow->id)->get();
         return view('question.detail', [
             'dataShow' => $dataShow,

@@ -33,5 +33,10 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/questions/public', [TanyaCodingController::class, 'public'])->name('/questions/public');
-Route::get('/questions/public/detail/{id}', [TanyaCodingController::class, 'show'])->name('/questions/public/detail');
+Route::get('/questions/public/detail/{id}', [TanyaCodingController::class, 'show'])->name('/questions/public/detail/{id}');
+
+
+Route::get('testing', function () {
+    return view('layout.app');
+});
 require __DIR__ . '/auth.php';
