@@ -38,7 +38,7 @@ class TanyaCodingController extends Controller
     public function dashboardUser()
     {
         $user_id = Auth::user()->id;
-        $dataAsk = Pertanyaan::where('user_id', $user_id)->get();
+        $dataAsk = Pertanyaan::latest()->where('user_id', $user_id)->get();
 
         return view('main.dashboardUser', [
             'dataAsk' => $dataAsk
@@ -72,15 +72,32 @@ class TanyaCodingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function detail($id)
+    {
+        $totalJwb = Pertanyaan::select('answers_count')->where('id', $id)->value('answers_count');
+        $dataShow = Pertanyaan::find($id);
+        $dataJwb = Answers::where('questions_id', $dataShow->id)->get();
+        return view('question_user.detail', [
+            'dataShow' => $dataShow,
+            'dataJwb' => $dataJwb,
+            'totalJwb' => $totalJwb,
+        ]);
+    }
+
+
+
+
     public function show($id)
     {
         //
-
+        $totalJwb = Pertanyaan::select('answers_count')->where('id', $id)->value('answers_count');
         $dataShow = Pertanyaan::find($id);
         $dataJwb = Answers::where('questions_id', $dataShow->id)->get();
         return view('question.detail', [
             'dataShow' => $dataShow,
             'dataJwb' => $dataJwb,
+            'totalJwb' => $totalJwb,
         ]);
     }
 

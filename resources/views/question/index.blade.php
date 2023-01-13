@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layout.app')
 @section('title', 'Buat Pertanyaan')
 
 @section('content')
@@ -13,8 +13,13 @@
                             name="title">
                     </div>
                     <div class="mb-3">
+                        <label for="formFile" class="form-label">Upload Image</label>
+                        <input class="form-control" type="file" id="formFile">
+                    </div>
+                    <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">Question</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="body"></textarea>
+                        <input id="body" type="hidden" name="body">
+                        <trix-editor input="body"></trix-editor>
                     </div>
                     <div class="d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary">Ask</button>

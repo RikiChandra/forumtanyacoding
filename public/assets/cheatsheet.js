@@ -26,12 +26,12 @@
     })
 
   // Disable empty links and submit buttons
-  document.querySelectorAll('[href="#"], [type="submit"]')
-    .forEach(link => {
-      link.addEventListener('click', event => {
-        event.preventDefault()
-      })
-    })
+  // document.querySelectorAll('[href="#"],')
+  //   .forEach(link => {
+  //     link.addEventListener('click', event => {
+  //       event.preventDefault()
+  //     })
+  //   })
 
   function setActiveItem() {
     const { hash } = window.location

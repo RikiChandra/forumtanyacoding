@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layout.app')
 @section('title', 'ForumTanyaCoding')
 
 @section('content')
@@ -14,12 +14,13 @@
         @if ($dataAsk->count())
             <div class="list-group mt-2">
                 @foreach ($dataAsk as $item)
-                    <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                    <a href="/questions/user/detail/{{ $item->id }}" class="list-group-item list-group-item-action"
+                        aria-current="true">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{ $item->title }}</h5>
                             <small>{{ $item->created_at->diffForHumans() }}</small>
                         </div>
-                        <p class="mb-1">{{ $item->body }}</p>
+                        <p class="mb-1">{{ $item->excp }}</p>
                         <small>{{ Auth()->user()->name }}</small>
                     </a>
                 @endforeach

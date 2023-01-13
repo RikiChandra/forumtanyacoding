@@ -6,6 +6,7 @@ use App\Models\Pertanyaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class PertanyaanController extends Controller
 {
@@ -45,11 +46,13 @@ class PertanyaanController extends Controller
             'body' => 'required',
         ]);
 
+
         $validatedData = new Pertanyaan();
 
         $validatedData->user_id = Auth::user()->id;
         $validatedData->title = $request->title;
         $validatedData->body = $request->body;
+        $validatedData['excp'] = Str::limit(strip_tags($request->body), 200);
 
         $validatedData->save();
 

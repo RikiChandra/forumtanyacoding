@@ -24,12 +24,15 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/questions/ask', [PertanyaanController::class, 'create'])->name('/questions/ask');
     Route::get('/questions/user', [TanyaCodingController::class, 'dashboardUser'])->name('/questions/user');
 
     Route::post('/send/questions', [PertanyaanController::class, 'store'])->name('/send/questions');
     Route::post('/send/answers', [AnswersController::class, 'store'])->name('/send/answers');
+    Route::get('/questions/user/detail/{id}', [TanyaCodingController::class, 'detail'])->name('/questions/user/detail/{id}');
 });
 
 Route::get('/questions/public', [TanyaCodingController::class, 'public'])->name('/questions/public');

@@ -5,7 +5,9 @@
         <div class="card">
             <div class="card-body">
                 <h1 style="font: inherit" class="fs-2">{{ $dataShow->title }}</h1>
-                <p>{!! $dataShow->body !!}</p>
+                <div class="body-post text-base text-gray-800 leading-relaxed font-serif">
+                    {!! $dataShow->body !!}
+                </div>
             </div>
         </div>
         <div class="card mt-3">
@@ -13,6 +15,22 @@
                 @if ($dataJwb->count())
                     <h1 style="font: inherit" class="fs-4">{{ $totalJwb }} Jawaban</h1>
                     @foreach ($dataJwb as $item)
+                        {{-- <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="title-{{ $loop->index }}">
+                                    <button class="accordion-button " type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Telah dijawab oleh {{ $item->user->name }} {{ $item->updated_at->diffForHumans() }}
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                                    data-bs-parent="title-{{ $loop->index }}">
+                                    <div class="accordion-body">
+                                        {{ $item->body }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div> --}}
                         <div class="card mt-3">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $item->user->name }}</h5>
@@ -22,7 +40,6 @@
                         </div>
                     @endforeach
                 @else
-                    {{-- <h1 style="font: inherit" class="fs-4">belum ada jawaban</h1> --}}
                     <div class="alert alert-secondary" role="alert">
                         <h4 class="alert-heading">Belum ada jawaban!</h4>
                         <p>Aww yeah, you successfully read this important alert message. This example text is going to run a
@@ -49,5 +66,4 @@
             <input type="text" value="{{ $dataShow->id }}" name="questions_id" hidden>
         </form>
     </div>
-
 @endsection

@@ -12,7 +12,7 @@
                     <h5 class="mb-1">{{ $item->title }}</h5>
                     <small>{{ $item->created_at->diffForHumans() }}</small>
                 </div>
-                <p class="mb-1">{{ $item->body }}</p>
+                <p class="mb-1">{{ $item->excp }}</p>
                 <small>Ditanyakan oleh {{ $item->user->name }}</small><br>
                 @if ($item->answers_count > 0)
                     <small>telah dijawab sebanyak {{ $item->answers_count }}</small>
