@@ -26,7 +26,14 @@
                 @endforeach
             </div>
         @else
-            <p class="text-center fs-4">Tidak ada pertanyaan</p>
+            <div class="alert alert-secondary mt-2" role="alert">
+                <h4 class="alert-heading">Tidak ada pertanyaan!</h4>
+                <p>Aww yeah, you successfully read this important alert message. This example text is going to run a
+                    bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+                <hr>
+                <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and
+                    tidy.</p>
+            </div>
         @endif
     </div>
 @endsection

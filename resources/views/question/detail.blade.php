@@ -4,7 +4,13 @@
     <div class="col-lg-10">
         <div class="card">
             <div class="card-body">
-                <h1 style="font: inherit" class="fs-2">{{ $dataShow->title }}</h1>
+                <h1 style="font: inherit" class="fs-2">
+                    {{ $dataShow->title }}
+                </h1>
+                <div class="my-5 rounded-sm overflow-hidden">
+                    <img src="{{ asset('storage/' . $dataShow->foto) }}" alt="{{ $dataShow->title }}" class="img-fluid"
+                        height="">
+                </div>
                 <p>{!! $dataShow->body !!}</p>
             </div>
         </div>

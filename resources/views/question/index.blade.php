@@ -5,7 +5,7 @@
     <div class="col-lg-10">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('/send/questions') }}" method="post">
+                <form action="{{ route('/send/questions') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Title</label>
@@ -14,7 +14,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Upload Image</label>
-                        <input class="form-control" type="file" id="formFile">
+                        <input class="form-control" type="file" id="formFile" name="foto">
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">Question</label>

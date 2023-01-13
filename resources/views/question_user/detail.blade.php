@@ -5,6 +5,14 @@
         <div class="card">
             <div class="card-body">
                 <h1 style="font: inherit" class="fs-2">{{ $dataShow->title }}</h1>
+                <div class="d-flex justify-content-end">
+                    <a href="" class="btn btn-warning me-1">Edit</a>
+                    <a href="" class="btn btn-danger">Delete</a>
+                </div>
+                <div class="my-5 rounded-sm overflow-hidden">
+                    <img src="{{ asset('storage/' . $dataShow->foto) }}" alt="{{ $dataShow->title }}" class="img-fluid"
+                        height="">
+                </div>
                 <div class="body-post text-base text-gray-800 leading-relaxed font-serif">
                     {!! $dataShow->body !!}
                 </div>
@@ -15,22 +23,6 @@
                 @if ($dataJwb->count())
                     <h1 style="font: inherit" class="fs-4">{{ $totalJwb }} Jawaban</h1>
                     @foreach ($dataJwb as $item)
-                        {{-- <div class="accordion" id="accordionExample">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="title-{{ $loop->index }}">
-                                    <button class="accordion-button " type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Telah dijawab oleh {{ $item->user->name }} {{ $item->updated_at->diffForHumans() }}
-                                    </button>
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                                    data-bs-parent="title-{{ $loop->index }}">
-                                    <div class="accordion-body">
-                                        {{ $item->body }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
                         <div class="card mt-3">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $item->user->name }}</h5>

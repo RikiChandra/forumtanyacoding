@@ -44,6 +44,7 @@ class PertanyaanController extends Controller
         $validatedData = $request->validate([
             'title' => 'required',
             'body' => 'required',
+            'foto' => 'image|file|max:1024',
         ]);
 
 
@@ -53,6 +54,10 @@ class PertanyaanController extends Controller
         $validatedData->title = $request->title;
         $validatedData->body = $request->body;
         $validatedData['excp'] = Str::limit(strip_tags($request->body), 200);
+
+        if ($request->file('foto')) {
+            $validatedData['foto'] = $request->file('foto')->store('questions-images');
+        }
 
         $validatedData->save();
 
