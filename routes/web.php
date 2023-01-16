@@ -33,6 +33,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/send/questions', [PertanyaanController::class, 'store'])->name('/send/questions');
     Route::post('/send/answers', [AnswersController::class, 'store'])->name('/send/answers');
     Route::get('/questions/user/detail/{id}', [TanyaCodingController::class, 'detail'])->name('/questions/user/detail/{id}');
+    Route::get('/questions/user/edit/{id}', [TanyaCodingController::class, 'edit'])->name('/questions/user/edit/')->middleware('questions');
+    Route::patch('/questions/update/{tanya}', [TanyaCodingController::class, 'update'])->name('questions.update');
+
+    Route::delete('/questions/user/delete/{pertanyaan}', [PertanyaanController::class, 'destroy'])->name('/questions/user/delete/');
 });
 
 Route::get('/questions/public', [TanyaCodingController::class, 'public'])->name('/questions/public');

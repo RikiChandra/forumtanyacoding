@@ -8,6 +8,8 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class TanyaCodingController extends Controller
 {
@@ -110,6 +112,10 @@ class TanyaCodingController extends Controller
     public function edit($id)
     {
         //
+        $dataPert = Pertanyaan::where('id', $id)->first();
+        return view('question_user.edit', [
+            'dataPert' => $dataPert
+        ]);
     }
 
     /**
@@ -119,9 +125,28 @@ class TanyaCodingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Pertanyaan $tanya)
     {
         //
+
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+            'foto' => 'image|file|max:1024',
+        ]);
+
+        $validatedData['excp'] = Str::limit(strip_tags($request->body), 200);
+
+        if ($request->file('foto')) {
+            if ($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
+            $validatedData['foto'] = $request->file('foto')->store('questions-images');
+        }
+
+        $tanya->update($validatedData);
+
+        return redirect('/questions/user');
     }
 
     /**

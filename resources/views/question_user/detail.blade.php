@@ -6,8 +6,13 @@
             <div class="card-body">
                 <h1 style="font: inherit" class="fs-2">{{ $dataShow->title }}</h1>
                 <div class="d-flex justify-content-end">
-                    <a href="" class="btn btn-warning me-1">Edit</a>
-                    <a href="" class="btn btn-danger">Delete</a>
+                    <a href="/questions/user/edit/{{ $dataShow->id }}" class="btn btn-warning me-1">Edit</a>
+                    <form action="/questions/user/delete/{{ $dataShow->id }}" method="POST">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger"
+                            onclick="return confirm('Apakah anda ingin menghapus?')">Delete</button>
+                    </form>
                 </div>
                 <div class="my-5 rounded-sm overflow-hidden">
                     <img src="{{ asset('storage/' . $dataShow->foto) }}" alt="{{ $dataShow->title }}" class="img-fluid"

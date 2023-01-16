@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class PertanyaanController extends Controller
 {
@@ -103,6 +104,7 @@ class PertanyaanController extends Controller
     public function update(Request $request, Pertanyaan $pertanyaan)
     {
         //
+
     }
 
     /**
@@ -114,5 +116,13 @@ class PertanyaanController extends Controller
     public function destroy(Pertanyaan $pertanyaan)
     {
         //
+
+        if ($pertanyaan->foto) {
+            Storage::delete($pertanyaan->foto);
+        }
+
+        Pertanyaan::destroy($pertanyaan->id);
+
+        return redirect('/questions/user');
     }
 }
