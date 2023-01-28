@@ -104,7 +104,12 @@
 
                 error: function(response) {
                     console.log(response);
-                    alert("data di isi dulu");
+                    if (response.status == 401) {
+                        alert("login dulu");
+                    }
+                    if (response.status == 422) {
+                        alert("data di isi dulu");
+                    }
                 }
             });
         });

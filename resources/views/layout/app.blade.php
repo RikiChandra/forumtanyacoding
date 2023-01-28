@@ -175,7 +175,7 @@
                     @auth
                         <div class="card " style="width: 18rem;">
                             <img src="{{ asset('storage/' . auth()->user()->profile) }}" class="card-img-top"
-                                alt="...">
+                                alt="{{ auth()->user()->name }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ auth()->user()->name }}</h5>
                                 <p class="card-text">{{ auth()->user()->bio }}</p>
