@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnswersController;
 use App\Http\Controllers\APiTanyaCoding;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,3 +22,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('users', [APiTanyaCoding::class, 'index'])->name('users');
 Route::get('questions', [APiTanyaCoding::class, 'questions'])->name('questions');
+Route::get('dataPertanyaan/{id}', [APiTanyaCoding::class, 'show'])->name('dataPertanyaan');

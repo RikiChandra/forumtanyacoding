@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnswersController;
 use App\Http\Controllers\PertanyaanController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TanyaCodingController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,10 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/questions/update/{tanya}', [TanyaCodingController::class, 'update'])->name('questions.update');
 
     Route::delete('/questions/user/delete/{pertanyaan}', [PertanyaanController::class, 'destroy'])->name('/questions/user/delete/');
+
+    Route::get('/profile/{id}', [ProfileController::class, 'edit'])->name('/profile/{id}');
+
+    Route::patch('/profile/update/{user}', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 Route::get('/questions/public', [TanyaCodingController::class, 'public'])->name('/questions/public');
@@ -44,6 +49,7 @@ Route::get('/questions/public/detail/{id}', [TanyaCodingController::class, 'show
 
 
 Route::get('testing', function () {
-    return view('layout.app');
+    return view('Auths.register');
 });
+
 require __DIR__ . '/auth.php';

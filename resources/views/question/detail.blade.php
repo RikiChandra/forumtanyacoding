@@ -17,19 +17,29 @@
         <div class="card mt-3">
             <div class="card-body">
                 @if ($dataJwb->count())
-                    <h1 style="font: inherit" class="fs-4">{{ $totalJwb }} Jawaban</h1>
+                    <h1 style="font: inherit" id="total-answers" class="fs-4">{{ $totalJwb }} Jawaban</h1>
                     @foreach ($dataJwb as $item)
                         <div class="card mt-3">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $item->user->name }}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">{{ $item->updated_at->diffForHumans() }}</h6>
-                                <p class="card-text">{!! $item->body !!}</p>
+                                <div class="d-flex align-items-center">
+                                    <img src="{{ asset('storage/' . $item->user->profile) }}" alt="{{ $item->user->name }}"
+                                        class="img-fluid" height="32px" width="32px">
+                                    <div>
+                                        <h5 class="card-title mb-0">{{ $item->user->name }}</h5>
+                                        <h6 class="card-subtitle text-muted">{{ $item->updated_at->diffForHumans() }}
+                                        </h6>
+                                    </div>
+                                </div>
+                                <p class="card-text mt-3">{!! $item->body !!}</p>
                             </div>
                         </div>
                     @endforeach
+                    <div id="answers-container">
+                        <!-- jawaban yang sudah ada akan ditampilkan di sini -->
+                    </div>
                 @else
                     {{-- <h1 style="font: inherit" class="fs-4">belum ada jawaban</h1> --}}
-                    <div class="alert alert-secondary" role="alert">
+                    <div class="alert alert-secondary" role="alert" id="secondary">
                         <h4 class="alert-heading">Belum ada jawaban!</h4>
                         <p>Aww yeah, you successfully read this important alert message. This example text is going to run a
                             bit longer so that you can see how spacing within an alert works with this kind of content.</p>
@@ -40,7 +50,7 @@
                 @endif
             </div>
         </div>
-        <form action="{{ route('/send/answers') }}" method="post">
+        <form action="{{ route('/send/answers') }}" method="post" id="form">
             @csrf
             <div class="card mt-3">
                 <div class="card-body">
@@ -56,4 +66,47 @@
         </form>
     </div>
 
+@endsection
+@section('js')
+    <script>
+        $("form").on("submit", function(e) {
+            e.preventDefault(); //mencegah refresh halaman
+            $.ajax({
+                type: "POST",
+                url: "{{ route('/send/answers') }}",
+                dataType: "json",
+                data: $(this).serialize(),
+                success: function(response) {
+                    var timestamp = response.answer.updated_at;
+                    var momentTimestamp = moment(timestamp);
+                    var humanReadable = momentTimestamp.fromNow();
+
+                    var newAnswer = '<div class="card mt-3">' +
+                        '<div class="card-body">' +
+                        '<div class="d-flex align-items-center">' +
+                        '<img src="/storage/' + response.answer.user.profile + '" alt="' +
+                        response.answer.user.name + '" class="img-fluid" height="32px" width="32px">' +
+                        '<div>' +
+                        '<h5 class="card-title mb-0">' + response.answer.user.name + '</h5>' +
+                        '<h6 class="card-subtitle text-muted">' + humanReadable + '</h6>' +
+                        '</div>' +
+                        '</div>' +
+                        '<p class="card-text mt-3">' + response.answer.body + '</p>' +
+                        '</div>' +
+                        '</div>';
+
+
+                    $("#answers-container").append(newAnswer);
+                    $("#total-answers").text(response.totalJwb + " Jawaban");
+                    $("#form").get(0).reset();
+
+                },
+
+                error: function(response) {
+                    console.log(response);
+                    alert("data di isi dulu");
+                }
+            });
+        });
+    </script>
 @endsection

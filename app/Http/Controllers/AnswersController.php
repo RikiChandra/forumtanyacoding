@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answers;
+use App\Models\Pertanyaan;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Question\Question;
 
@@ -49,7 +51,17 @@ class AnswersController extends Controller
         $answer->body = $request->body;
         $answer->save();
 
-        return redirect('/questions/public');
+        $answers = Answers::with('user')->find($answer->id);
+        $totalJwb = $answer->question->answers_count;
+        $dataJwb = $answer->count();
+
+        return response()->json([
+            'success' => true,
+            'answer' => $answers,
+            'totalJwb' => $totalJwb,
+            'dataJwb' => $dataJwb,
+
+        ]);
     }
 
     /**

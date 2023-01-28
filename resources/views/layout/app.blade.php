@@ -16,7 +16,9 @@
 
 
 
+
     <link href="{{ asset('assets/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('assets/dist/js/jquery-3.5.1.js') }}"></script>
 
     <style>
         .bd-placeholder-img {
@@ -85,8 +87,6 @@
     <header class="bd-header bg-dark py-3 d-flex align-items-stretch border-bottom border-dark">
         <div class="container-fluid d-flex align-items-center">
             <h1 class="d-flex align-items-center fs-4 text-white mb-0">
-                <img src="{{ asset('assets/brand/bootstrap-logo-white.svg') }}" width="38" height="30"
-                    class="me-3" alt="Bootstrap">
                 ForumTanyaCoding
             </h1>
 
@@ -168,9 +168,21 @@
         <section id="content">
 
 
-            <article class="my-3" id="typography">
-                <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2">
 
+            <article class="my-3" id="typography">
+
+                <div class="bd-heading  align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2">
+                    @auth
+                        <div class="card " style="width: 18rem;">
+                            <img src="{{ asset('storage/' . auth()->user()->profile) }}" class="card-img-top"
+                                alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ auth()->user()->name }}</h5>
+                                <p class="card-text">{{ auth()->user()->bio }}</p>
+                                <a href="/profile/{{ auth()->user()->id }}" class="btn btn-outline-info">Edit Profile</a>
+                            </div>
+                        </div>
+                    @endauth
                 </div>
 
                 <div>
@@ -194,6 +206,8 @@
             e.preventDefault()
         })
     </script>
+    <script src="{{ asset('assets/dist/js/moment.js') }}"></script>
+    @yield('js')
 </body>
 
 

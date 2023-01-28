@@ -30,9 +30,15 @@
                     @foreach ($dataJwb as $item)
                         <div class="card mt-3">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $item->user->name }}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">{{ $item->updated_at->diffForHumans() }}</h6>
-                                <p class="card-text">{!! $item->body !!}</p>
+                                <div class="d-flex align-items-center">
+                                    <img src="{{ asset('storage/' . $item->user->profile) }}" alt="{{ $item->user->name }}"
+                                        class="img-fluid" height="32px" width="32px">
+                                    <div>
+                                        <h5 class="card-title mb-0">{{ $item->user->name }}</h5>
+                                        <h6 class="card-subtitle text-muted">{{ $item->updated_at->diffForHumans() }}</h6>
+                                    </div>
+                                </div>
+                                <p class="card-text mt-3">{!! $item->body !!}</p>
                             </div>
                         </div>
                     @endforeach
