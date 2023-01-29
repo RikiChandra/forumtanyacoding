@@ -46,7 +46,11 @@
                         <!-- jawaban yang sudah ada akan ditampilkan di sini -->
                     </div>
                 @else
-                    <div class="alert alert-secondary" role="alert">
+                    <h1 style="font: inherit" id="total-answers" class="fs-4">{{ $totalJwb }} Jawaban</h1>
+                    <div id="answers-container">
+                        <!-- jawaban yang sudah ada akan ditampilkan di sini -->
+                    </div>
+                    <div class="alert alert-secondary" role="alert" id="secondary">
                         <h4 class="alert-heading">Belum ada jawaban!</h4>
                         <p>Aww yeah, you successfully read this important alert message. This example text is going to run a
                             bit longer so that you can see how spacing within an alert works with this kind of content.</p>
@@ -104,6 +108,7 @@
 
                     $("#answers-container").append(newAnswer);
                     $("#total-answers").text(response.totalJwb + " Jawaban");
+                    $("#secondary").remove();
                     $("#form").get(0).reset();
 
                 },

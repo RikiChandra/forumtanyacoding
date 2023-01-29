@@ -38,6 +38,10 @@
                         <!-- jawaban yang sudah ada akan ditampilkan di sini -->
                     </div>
                 @else
+                    <h1 style="font: inherit" id="total-answers" class="fs-4">{{ $totalJwb }} Jawaban</h1>
+                    <div id="answers-container">
+                        <!-- jawaban yang sudah ada akan ditampilkan di sini -->
+                    </div>
                     {{-- <h1 style="font: inherit" class="fs-4">belum ada jawaban</h1> --}}
                     <div class="alert alert-secondary" role="alert" id="secondary">
                         <h4 class="alert-heading">Belum ada jawaban!</h4>
@@ -98,6 +102,7 @@
 
                     $("#answers-container").append(newAnswer);
                     $("#total-answers").text(response.totalJwb + " Jawaban");
+                    $("#secondary").remove();
                     $("#form").get(0).reset();
 
                 },
