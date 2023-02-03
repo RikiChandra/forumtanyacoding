@@ -207,6 +207,8 @@
         })
     </script>
     <script src="{{ asset('assets/dist/js/moment.js') }}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.0/dist/sweetalert2.all.min.js"></script> --}}
     @yield('js')
 </body>
 

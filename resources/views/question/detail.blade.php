@@ -73,6 +73,7 @@
 @endsection
 @section('js')
     <script>
+        const Swal = window.Swal;
         $("form").on("submit", function(e) {
             e.preventDefault(); //mencegah refresh halaman
             $.ajax({
@@ -110,10 +111,18 @@
                 error: function(response) {
                     console.log(response);
                     if (response.status == 401) {
-                        alert("login dulu");
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Silahkan login terlebih dahulu!',
+                        })
                     }
                     if (response.status == 422) {
-                        alert("data di isi dulu");
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Oops...',
+                            text: 'Silahkan isi jawaban terlebih dahulu!',
+                        })
                     }
                 }
             });

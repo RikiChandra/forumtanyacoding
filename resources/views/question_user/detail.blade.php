@@ -7,11 +7,10 @@
                 <h1 style="font: inherit" class="fs-2">{{ $dataShow->title }}</h1>
                 <div class="d-flex justify-content-end">
                     <a href="/questions/user/edit/{{ $dataShow->id }}" class="btn btn-warning me-1">Edit</a>
-                    <form action="/questions/user/delete/{{ $dataShow->id }}" method="POST">
+                    <form action="/questions/user/delete/{{ $dataShow->id }}" method="POST" id="formDlt">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-danger"
-                            onclick="return confirm('Apakah anda ingin menghapus?')">Delete</button>
+                        <button type="submit" class="btn btn-danger" id="deleteBtn">Delete</button>
                     </form>
                 </div>
                 <div class="my-5 rounded-sm overflow-hidden">
@@ -79,6 +78,7 @@
 @endsection
 @section('js')
     <script>
+        const Swal = window.Swal;
         $("#form").on("submit", function(e) {
             e.preventDefault(); //mencegah refresh halaman
             $.ajax({
@@ -115,7 +115,29 @@
 
                 error: function(response) {
                     console.log(response);
-                    alert("data di isi dulu");
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Oops...',
+                        text: 'Silahkan isi jawaban terlebih dahulu!',
+                    })
+                }
+            });
+        });
+    </script>
+    <script>
+        document.getElementById("deleteBtn").addEventListener("click", function(event) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Anda tidak akan dapat mengembalikan data ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.querySelector("#formDlt").submit();
                 }
             });
         });
